@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!-- The `lang` attribute will be dynamically set by JavaScript -->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- The title will be dynamically updated -->
+  <title>Live The Moment | Pin-Hsien Lin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Raleway & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 基本樣式與自定義字體 */
+    body {
+        font-family: 'Raleway', 'Inter', sans-serif; /* Default to Raleway, fallback to Inter */
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        cursor: none; /* 隱藏預設鼠標 */
+    }
+
+    /* 針對非標題的 UI 元素，使用無襯線字體以提高可讀性 */
+    .ui-font {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 鼠標跟隨效果樣式 */
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffffff;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ffffff;
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    }
+
+    /* 互動時鼠標的變化 */
+    body:has(a:hover) .cursor-outline,
+    body:has(button:hover) .cursor-outline,
+    body:has(.lang-btn:hover) .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+    }
+
+    /* 元素進入可視區域的動畫 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 導航欄底線效果 */
+    .nav-link {
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        margin-top: 4px;
+        right: 0;
+        background: #e5e5e5;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: #e5e5e5;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    /* 語言切換按鈕樣式 */
+    .lang-btn.active {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+
+    .lang-btn {
+        transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-lg z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold tracking-wider ui-font">PIN-HSIEN LIN</a>
+      <div class="flex items-center gap-6 text-sm ui-font">
+        <a href="../index.html" class="nav-link text-neutral-400 hover:text-white transition-colors duration-300" data-lang-key="header_back_to_portfolio">← Back to Portfolio</a>
+        <div class="border-l border-neutral-800 pl-6 flex gap-4">
+          <button id="lang-en" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">EN</button>
+          <span>/</span>
+          <button id="lang-zh" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">中文</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-24 container mx-auto px-6 max-w-5xl">
+
+    <!-- Title Section -->
+    <section class="mb-16 text-center reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400" data-lang-key="title">
+        Live The Moment
+      </h1>
+      <h2 class="text-xl text-neutral-400 mb-8 ui-font" data-lang-key="type">
+        VR / Kinetic Installation
+      </h2>
+
+      <div class="border-t border-b border-neutral-800 py-4 max-w-3xl mx-auto">
+          <ul class="text-sm text-neutral-400 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-left ui-font">
+            <li><strong class="font-medium text-neutral-200" data-lang-key="co_creator">Co-creator:</strong><br><span data-lang-key="co_creator_names">Sin-Ying Bai / Yan-Sin Lin</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="theme">Theme:</strong><br><span data-lang-key="theme_content">Speculation about the future, the connection between virtual and real space</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="year">Year:</strong><br><span data-lang-key="year_content">May 2022</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="media">Media:</strong><br><span data-lang-key="media_content">Animation, Mobile Platforms, Composite Media</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="size">Size:</strong><br><span data-lang-key="size_content">2 × 6 × 3 (m)</span></li>
+          </ul>
+      </div>
+    </section>
+    
+    <!-- Image Gallery -->
+    <section class="relative mb-20 group reveal">
+        <img id="gallery-image" src="https://i.imgur.com/MVHWvhu.jpeg" alt="Live The Moment installation view" class="w-full rounded-lg ring-1 ring-white/10 transition-opacity duration-500 ease-in-out">
+        
+        <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        
+        <button id="next-btn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+    </section>
+
+    <!-- Statement & Process Section -->
+    <section class="mb-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start reveal">
+        <!-- Left Column: Statement -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="statement_title">Statement</h3>
+            <p class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font">
+                <span data-lang-key="statement_text" class="block">We made a specific emergency about future anxiety, and made them "happen" in the exhibition hall. Using the anticipatory psychology that people will have when viewing the virtual world, we created a completely different environment before and after viewing, as if suddenly incidents do happen in the real world.</span>
+            </p>
+        </div>
+        <!-- Right Column: Production Process -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="process_title">Production Process</h3>
+            <ul class="text-lg leading-relaxed text-neutral-300 space-y-2 ui-font list-disc list-inside">
+                <li data-lang-key="process_step_1">Conceive and design</li>
+                <li data-lang-key="process_step_2">3D modeling</li>
+                <li data-lang-key="process_step_3">3D Scene construction</li>
+                <li data-lang-key="process_step_4">Mobile platform motor programming</li>
+                <li data-lang-key="process_step_5">Animation design</li>
+                <li data-lang-key="process_step_6">Real scene arrangement</li>
+                <li data-lang-key="process_step_7">Mobile platform assembly, VR device setup</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Exhibition Section -->
+    <section class="mb-20 reveal">
+        <h3 class="text-3xl font-bold mb-8 text-center" data-lang-key="exhibition_title">Exhibition in Ars Electronica Festival</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="col-span-2 row-span-2">
+                <img src="https://i.imgur.com/RuhkkVC.jpeg" alt="Exhibition view 1" class="w-full h-full object-cover rounded-lg ring-1 ring-white/10">
+            </div>
+            <div>
+                <img src="https://i.imgur.com/d3pS3hU.jpeg" alt="Exhibition view 2" class="w-full h-full object-cover rounded-lg ring-1 ring-white/10">
+            </div>
+            <div>
+                <img src="https://i.imgur.com/ifxQEAe.jpeg" alt="Exhibition view 3" class="w-full h-full object-cover rounded-lg ring-1 ring-white/10">
+            </div>
+            <div class="col-span-2">
+                <img src="https://i.imgur.com/HT128vH.jpeg" alt="Exhibition view 4" class="w-full h-full object-cover rounded-lg ring-1 ring-white/10">
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="mb-20 reveal">
+      <div class="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/ew1tj4_v_Yk"
+          title="Live The Moment Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="mt-4 text-sm text-center text-neutral-500 ui-font" data-lang-key="video_caption">
+        Exhibited at <span class="font-medium text-neutral-300">Ars Electronica Festival</span>
+      </p>
+    </section>
+
+    <!-- Back Button -->
+    <div class="mt-20 text-center reveal">
+      <a href="../index.html#portfolio" class="inline-block px-8 py-3 bg-neutral-800 text-neutral-200 font-semibold rounded-full border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:scale-105 transition-all duration-300 ui-font" data-lang-key="header_back_to_portfolio">
+        ← Back to Portfolio
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-neutral-600 py-10 text-sm border-t border-neutral-900 ui-font reveal">
+    <p data-lang-key="footer_copyright">© 2024 Pin-Hsien Lin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Translations Content Object ---
+        const translations = {
+            en: {
+                header_back_to_portfolio: "← Back to Portfolio",
+                title: "Live The Moment",
+                type: "VR / Kinetic Installation",
+                co_creator: "Co-creator:",
+                co_creator_names: "Sin-Ying Bai / Yan-Sin Lin",
+                theme: "Theme:",
+                theme_content: "Speculation about the future, the connection between virtual and real space",
+                year: "Year:",
+                year_content: "May 2022",
+                media: "Media:",
+                media_content: "Animation, Mobile Platforms, Composite Media",
+                size: "Size:",
+                size_content: "2 × 6 × 3 (m)",
+                statement_title: "Statement",
+                statement_text: "We made a specific emergency about future anxiety, and made them \"happen\" in the exhibition hall. Using the anticipatory psychology that people will have when viewing the virtual world, we created a completely different environment before and after viewing, as if suddenly incidents do happen in the real world.",
+                process_title: "Production Process",
+                process_step_1: "Conceive and design",
+                process_step_2: "3D modeling",
+                process_step_3: "3D Scene construction",
+                process_step_4: "Mobile platform motor programming",
+                process_step_5: "Animation design",
+                process_step_6: "Real scene arrangement",
+                process_step_7: "Mobile platform assembly, VR device setup",
+                exhibition_title: "Exhibition in Ars Electronica Festival: Nature of Prototyping",
+                video_caption: "Exhibited at <span class=\"font-medium text-neutral-300\">Ars Electronica Festival</span>",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+            },
+            zh: {
+                header_back_to_portfolio: "← 返回作品集",
+                title: "活在當下",
+                type: "VR、動力裝置",
+                co_creator: "共同創作者:",
+                co_creator_names: "白欣穎、林彥心",
+                theme: "主題:",
+                theme_content: "對未來的揣測、虛擬與真實空間的關聯",
+                year: "年份:",
+                year_content: "2022 年 5 月",
+                media: "媒材:",
+                media_content: "動畫、移動式平台、複合媒材",
+                size: "尺寸:",
+                size_content: "約 2 x 6 x 3 (公尺)",
+                statement_title: "創作論述",
+                statement_text: "我們將對未來的焦慮化做具體的突發事件，並且使其在展場中「發生」，利用人們在觀賞虛擬世界時會產生的預期心理，在觀賞前後打造出截然不同的環境，彷彿突發事件在真實世界中也確實發生。",
+                process_title: "創作流程",
+                process_step_1: "概念發想與設計",
+                process_step_2: "3D建模",
+                process_step_3: "3D場景建構",
+                process_step_4: "移動平台馬達程式編寫",
+                process_step_5: "動畫設計",
+                process_step_6: "現實場景安排",
+                process_step_7: "移動平台組裝、VR設備架設",
+                exhibition_title: "林茲電子藝術節展覽",
+                video_caption: "Ars Electronica Festival 2022 參展作品",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+            }
+        };
+
+        // --- Language Switcher ---
+        const langButtons = {
+            en: document.getElementById('lang-en'),
+            zh: document.getElementById('lang-zh')
+        };
+        const allLangElements = document.querySelectorAll('[data-lang-key]');
+        
+        const updateContentLanguage = (lang) => {
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            
+            allLangElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // For video_caption, we need to use innerHTML because it contains a span tag
+                    if (key === 'video_caption') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            Object.values(langButtons).forEach(btn => btn.classList.remove('active'));
+            langButtons[lang].classList.add('active');
+        };
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'zh') lang = 'en'; // Default to English
+            localStorage.setItem('lang', lang);
+            updateContentLanguage(lang);
+        };
+
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        setLanguage(savedLang || browserLang);
+
+        langButtons.en.addEventListener('click', () => setLanguage('en'));
+        langButtons.zh.addEventListener('click', () => setLanguage('zh'));
+
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        });
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+
+        // --- Image Gallery ---
+        const galleryImage = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const images = [
+            { src: 'https://i.imgur.com/MVHWvhu.jpeg', alt: 'Live The Moment installation view' },
+            { src: 'https://i.imgur.com/nIyB6JI.jpeg', alt: 'Live The Moment installation detail' },
+            { src: 'https://i.imgur.com/qCvLbiV.png', alt: 'Live The Moment installation detail' },
+            { src: 'https://i.imgur.com/f6Q3b4S.jpeg', alt: 'Live The Moment installation detail' },
+            { src: 'https://i.imgur.com/7QK2DMf.jpeg', alt: 'Live The Moment environment' }
+        ];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            galleryImage.style.opacity = '0';
+            setTimeout(() => {
+                galleryImage.src = images[index].src;
+                galleryImage.alt = images[index].alt;
+                galleryImage.style.opacity = '1';
+            }, 300); // Match transition duration
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+    });
+  </script>
+
+</body>
+</html>
+

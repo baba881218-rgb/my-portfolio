@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<!-- The `lang` attribute will be dynamically set by JavaScript --><html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- The title will be dynamically updated --><title>Out of the Bound | Pin-Hsien Lin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Raleway & Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 基本樣式與自定義字體 */
+    body {
+        font-family: 'Raleway', 'Inter', sans-serif; /* Default to Raleway, fallback to Inter */
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        cursor: none; /* 隱藏預設鼠標 */
+    }
+
+    /* 針對非標題的 UI 元素，使用無襯線字體以提高可讀性 */
+    .ui-font {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 鼠標跟隨效果樣式 */
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffffff;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ffffff;
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    }
+
+    /* 互動時鼠標的變化 */
+    body:has(a:hover) .cursor-outline,
+    body:has(button:hover) .cursor-outline,
+    body:has(.lang-btn:hover) .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+    }
+
+    /* 元素進入可視區域的動畫 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 導航欄底線效果 */
+    .nav-link {
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        margin-top: 4px;
+        right: 0;
+        background: #e5e5e5;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: #e5e5e5;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    /* 語言切換按鈕樣式 */
+    .lang-btn.active {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+
+    .lang-btn {
+        transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Custom Cursor --><div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Header --><header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-lg z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold tracking-wider ui-font">PIN-HSIEN LIN</a>
+      <div class="flex items-center gap-6 text-sm ui-font">
+        <a href="../index.html" class="nav-link text-neutral-400 hover:text-white transition-colors duration-300" data-lang-key="header_back_to_portfolio">← Back to Portfolio</a>
+        <div class="border-l border-neutral-800 pl-6 flex gap-4">
+          <button id="lang-en" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">EN</button>
+          <span>/</span>
+          <button id="lang-zh" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">中文</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content --><main class="pt-32 pb-24 container mx-auto px-6 max-w-5xl">
+
+    <!-- Title Section --><section class="mb-16 text-center reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400" data-lang-key="title">
+        Out of the Bound
+      </h1>
+      <h2 class="text-xl text-neutral-400 mb-8 ui-font" data-lang-key="type">
+        360 VR videos and Live streaming
+      </h2>
+
+      <div class="border-t border-b border-neutral-800 py-4 max-w-3xl mx-auto">
+          <ul class="text-sm text-neutral-400 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-left ui-font">
+            <!-- Co-creator removed as per new content --><li><strong class="font-medium text-neutral-200" data-lang-key="theme">Theme:</strong><br><span data-lang-key="theme_content">Time and space in out-of-body experiences</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="year">Year:</strong><br><span data-lang-key="year_content">May 2024</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="media">Media:</strong><br><span data-lang-key="media_content">360 Video, 360 Camera</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="size">Size:</strong><br><span data-lang-key="size_content">3 × 6 × 3 (m)</span></li>
+          </ul>
+      </div>
+    </section>
+    
+    <!-- Image Gallery --><section class="relative mb-20 group reveal">
+        <img id="gallery-image" src="https://i.imgur.com/KC45yjW.jpeg" alt="Out of the Bound installation view 1" class="w-full rounded-lg ring-1 ring-white/10 transition-opacity duration-500 ease-in-out">
+        
+        <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        
+        <button id="next-btn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+    </section>
+
+    <!-- Statement & Process Section --><section class="mb-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start reveal">
+        <!-- Left Column: Statement --><div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="statement_title">Statement</h3>
+            <p class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font">
+                <span data-lang-key="statement_text" class="block">Through virtual reality experiences, the illusion of separation between the soul and the body is created. When future technology enables consciousness to exist independently of the body, will people still perceive time and space in the same way? Or perhaps our perception of time and space will be "filtered" by technology?</span>
+            </p>
+        </div>
+        <!-- Right Column: Production Process --><div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="process_title">Production Process</h3>
+            <ul class="text-lg leading-relaxed text-neutral-300 space-y-2 ui-font list-disc list-inside">
+                <li data-lang-key="process_step_1">Automatic moving camera tripod (motor, track, pulley, tripod)</li>
+                <li data-lang-key="process_step_2">360 video (Insta360 Pro, Premiere)</li>
+                <li data-lang-key="process_step_3">360 live stream (Insta360 Pro, Obs Studio)</li>
+                <li data-lang-key="process_step_4">Project operation (Unreal Engine 5)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Interactive Process Section --><section class="mb-20 reveal">
+        <h3 class="text-3xl font-bold mb-8 text-center" data-lang-key="interactive_process_title">Interactive Process</h3>
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- Images for interactive process --><div class="flex flex-col gap-4"> <!-- Added flex column and gap for vertical stacking --><img src="https://i.imgur.com/cAjy99m.jpeg" alt="Interactive Process Setup 1" class="w-5/6 mx-auto rounded-lg ring-1 ring-white/10">
+              <img src="https://i.imgur.com/uMzXPt8.jpeg" alt="Interactive Process Setup 2" class="w-5/6 mx-auto rounded-lg ring-1 ring-white/10">
+            </div>
+            <div>
+                <ol class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font list-decimal list-outside pl-5">
+                    <li data-lang-key="interactive_process_step_1">The audience puts on the VR headset.</li>
+                    <li data-lang-key="interactive_process_step_2">A pre-recorded panoramic video taken at the exhibition is played in VR, with the viewpoint automatically moving forward until it stops at the end of the track, while the audience remains standing in place.</li>
+                    <li data-lang-key="interactive_process_step_3">The video switches to a live stream from the 360 camera placed at the end of the track, allowing the audience to turn around and see themselves.</li>
+                    <li data-lang-key="interactive_process_step_4">The view switches back to the pre-recorded video, with the viewpoint moving backward to the audience's standing position.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exhibition Section --><section class="mb-20 reveal">
+        <h3 class="text-3xl font-bold mb-8 text-center" data-lang-key="exhibition_title">Exhibition in Rondo Sztuki, Katowice, Poland</h3>
+        <div class="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10">
+            <video
+              class="w-full h-full"
+              src="https://i.imgur.com/YuOEXjQ.mp4"
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+            >
+              Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- Video Section --><section class="mb-20 reveal">
+      <div class="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/Evfo-3OoYvo"
+          title="Out of the Bound Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="mt-4 text-sm text-center text-neutral-500 ui-font" data-lang-key="video_caption">
+        Project video: <span class="font-medium text-neutral-300">Out of the Bound</span>
+      </p>
+    </section>
+
+    <!-- Back Button --><div class="mt-20 text-center reveal">
+      <a href="../index.html#portfolio" class="inline-block px-8 py-3 bg-neutral-800 text-neutral-200 font-semibold rounded-full border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:scale-105 transition-all duration-300 ui-font" data-lang-key="header_back_to_portfolio">
+        ← Back to Portfolio
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer --><footer class="text-center text-neutral-600 py-10 text-sm border-t border-neutral-900 ui-font reveal">
+    <p data-lang-key="footer_copyright">© 2024 Pin-Hsien Lin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts --><script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Translations Content Object ---
+        const translations = {
+            en: {
+                header_back_to_portfolio: "← Back to Portfolio",
+                title: "Out of the Bound",
+                type: "360 VR videos and Live streaming",
+                theme: "Theme:",
+                theme_content: "Time and space in out-of-body experiences",
+                year: "Year:",
+                year_content: "May 2024",
+                media: "Media:",
+                media_content: "360 Video, 360 Camera",
+                size: "Size:",
+                size_content: "3 × 6 × 3 (m)",
+                statement_title: "Statement",
+                statement_text: "Through virtual reality experiences, the illusion of separation between the soul and the body is created. When future technology enables consciousness to exist independently of the body, will people still perceive time and space in the same way? Or perhaps our perception of time and space will be \"filtered\" by technology?",
+                process_title: "Production Process",
+                process_step_1: "Automatic moving camera tripod (motor, track, pulley, tripod)",
+                process_step_2: "360 video (Insta360 Pro, Premiere)",
+                process_step_3: "360 live stream (Insta360 Pro, Obs Studio)",
+                process_step_4: "Project operation (Unreal Engine 5)",
+                interactive_process_title: "Interactive Process",
+                interactive_process_step_1: "The audience puts on the VR headset.",
+                interactive_process_step_2: "A pre-recorded panoramic video taken at the exhibition is played in VR, with the viewpoint automatically moving forward until it stops at the end of the track, while the audience remains standing in place.",
+                interactive_process_step_3: "The video switches to a live stream from the 360 camera placed at the end of the track, allowing the audience to turn around and see themselves.",
+                interactive_process_step_4: "The view switches back to the pre-recorded video, with the viewpoint moving backward to the audience's standing position.",
+                exhibition_title: "Exhibition in Rondo Sztuki, Katowice, Poland",
+                video_caption: "Project video: <span class=\"font-medium text-neutral-300\">Out of the Bound</span>",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+            },
+            zh: {
+                header_back_to_portfolio: "← 返回作品集",
+                title: "出界",
+                type: "360 VR 影片與直播",
+                theme: "主題:",
+                theme_content: "關於出體經驗的時空觀",
+                year: "年份:",
+                year_content: "2024 年 5 月",
+                media: "媒材:",
+                media_content: "360 影片、360 相機",
+                size: "尺寸:",
+                size_content: "3 x 6 x 3 (公尺)",
+                statement_title: "創作論述",
+                statement_text: "透過虛擬實境的體驗，營造靈魂與身體分離的錯覺。當未來科技可以讓意識脫離身體獨立存在時，人們對於時間與空間的感受會因此不同嗎？又或者說，我們所感受到的時空會被科技「過濾」嗎？",
+                process_title: "創作流程",
+                process_step_1: "自動移動攝影機腳架 (馬達、軌道、滑輪、腳架)",
+                process_step_2: "360 影片製作 (Insta360 Pro、Premiere)",
+                process_step_3: "360 直播串流 (Insta360 Pro、Obs Studio)",
+                process_step_4: "專案運行 (Unreal Engine 5)",
+                interactive_process_title: "互動流程",
+                interactive_process_step_1: "觀者戴上 VR 頭顯。",
+                interactive_process_step_2: "VR 中播放預錄好的展場全景影片，視角自動前進至軌道末端並停止，而觀者本身仍站在原地。",
+                interactive_process_step_3: "影片切換為軌道末端 360 攝影機的現場直播，觀者可以轉身看見自己。",
+                interactive_process_step_4: "視角切換回預錄影片，並往後退回觀者站立的位置。",
+                exhibition_title: "於波蘭卡托維茲 Rondo Sztuki 展出",
+                video_caption: "作品影片：<span class=\"font-medium text-neutral-300\">出界</span>",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+            }
+        };
+
+        // --- Language Switcher ---
+        const langButtons = {
+            en: document.getElementById('lang-en'),
+            zh: document.getElementById('lang-zh')
+        };
+        const allLangElements = document.querySelectorAll('[data-lang-key]');
+        
+        const updateContentLanguage = (lang) => {
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            
+            allLangElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // For video_caption, we need to use innerHTML because it contains a span tag
+                    if (key === 'video_caption') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            Object.values(langButtons).forEach(btn => btn.classList.remove('active'));
+            langButtons[lang].classList.add('active');
+        };
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'zh') lang = 'en'; // Default to English
+            localStorage.setItem('lang', lang);
+            updateContentLanguage(lang);
+        };
+
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        setLanguage(savedLang || browserLang);
+
+        langButtons.en.addEventListener('click', () => setLanguage('en'));
+        langButtons.zh.addEventListener('click', () => setLanguage('zh'));
+
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        });
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+
+        // --- Image Gallery ---
+        const galleryImage = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const images = [
+            { src: 'https://i.imgur.com/KC45yjW.jpeg', alt: 'Out of the Bound installation view 1' },
+            { src: 'https://i.imgur.com/NRTyUHf.png', alt: 'Out of the Bound installation view 2' },
+            { src: 'https://i.imgur.com/Qku2wRh.png', alt: 'Out of the Bound installation view 3' },
+            { src: 'https://i.imgur.com/L8qRpCN.png', alt: 'Out of the Bound installation view 4' }
+        ];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            galleryImage.style.opacity = '0';
+            setTimeout(() => {
+                galleryImage.src = images[index].src;
+                galleryImage.alt = images[index].alt;
+                galleryImage.style.opacity = '1';
+            }, 300); // Match transition duration
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+    });
+  </script>
+
+</body>
+</html>
+

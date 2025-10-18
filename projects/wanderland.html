@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<!-- The `lang` attribute will be dynamically set by JavaScript -->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- The title will be dynamically updated -->
+  <title>Wanderland | Pin-Hsien Lin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Raleway & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 基本樣式與自定義字體 */
+    body {
+        font-family: 'Raleway', 'Inter', sans-serif; /* Default to Raleway, fallback to Inter */
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        cursor: none; /* 隱藏預設鼠標 */
+    }
+
+    /* 針對非標題的 UI 元素，使用無襯線字體以提高可讀性 */
+    .ui-font {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 鼠標跟隨效果樣式 */
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffffff;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ffffff;
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    }
+
+    /* 互動時鼠標的變化 */
+    body:has(a:hover) .cursor-outline,
+    body:has(button:hover) .cursor-outline,
+    body:has(.lang-btn:hover) .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+    }
+
+    /* 元素進入可視區域的動畫 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 導航欄底線效果 */
+    .nav-link {
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        margin-top: 4px;
+        right: 0;
+        background: #e5e5e5;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: #e5e5e5;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    /* 語言切換按鈕樣式 */
+    .lang-btn.active {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+
+    .lang-btn {
+        transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-lg z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold tracking-wider ui-font">PIN-HSIEN LIN</a>
+      <div class="flex items-center gap-6 text-sm ui-font">
+        <a href="../index.html" class="nav-link text-neutral-400 hover:text-white transition-colors duration-300" data-lang-key="header_back_to_portfolio">← Back to Portfolio</a>
+        <div class="border-l border-neutral-800 pl-6 flex gap-4">
+          <button id="lang-en" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">EN</button>
+          <span>/</span>
+          <button id="lang-zh" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">中文</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-24 container mx-auto px-6 max-w-5xl">
+
+    <!-- Title Section -->
+    <section class="mb-16 text-center reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400" data-lang-key="title">
+        Wanderland
+      </h1>
+      <h2 class="text-xl text-neutral-400 mb-8 ui-font" data-lang-key="type">
+        3D Animation / VR
+      </h2>
+
+      <div class="border-t border-b border-neutral-800 py-4 max-w-3xl mx-auto">
+          <ul class="text-sm text-neutral-400 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-left ui-font">
+            <li><strong class="font-medium text-neutral-200" data-lang-key="theme">Theme:</strong><br><span data-lang-key="theme_content">Concretization of dreams</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="year">Year:</strong><br><span data-lang-key="year_content">June 2023</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="size">Size:</strong><br><span data-lang-key="size_content">Depends on the size of the device</span></li>
+          </ul>
+      </div>
+    </section>
+    
+    <!-- Image Gallery -->
+    <section class="relative mb-20 group reveal">
+        <img id="gallery-image" src="https://i.imgur.com/BOSMKAJ.png" alt="Wanderland project image" class="w-full rounded-lg ring-1 ring-white/10 transition-opacity duration-500 ease-in-out">
+        
+        <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        
+        <button id="next-btn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+    </section>
+
+    <!-- Concept Section -->
+    <section class="mb-20 grid md:grid-cols-1 gap-12 md:gap-16 items-start reveal">
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="concept_title">Concept</h3>
+            <p class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font">
+                <span data-lang-key="concept_text" class="block"></span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="mb-20 reveal">
+      <div class="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/vMrgUNhiO8o"
+          title="Wanderland Project Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="mt-4 text-sm text-center text-neutral-500 ui-font" data-lang-key="video_caption">
+        Wanderland Project Video
+      </p>
+    </section>
+
+    <!-- Back Button -->
+    <div class="mt-20 text-center reveal">
+      <a href="../index.html#portfolio" class="inline-block px-8 py-3 bg-neutral-800 text-neutral-200 font-semibold rounded-full border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:scale-105 transition-all duration-300 ui-font" data-lang-key="header_back_to_portfolio">
+        ← Back to Portfolio
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-neutral-600 py-10 text-sm border-t border-neutral-900 ui-font reveal">
+    <p data-lang-key="footer_copyright">© 2024 Pin-Hsien Lin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Translations Content Object ---
+        const translations = {
+            en: {
+                header_back_to_portfolio: "← Back to Portfolio",
+                title: "Wanderland",
+                type: "3D Animation / VR",
+                theme: "Theme:",
+                theme_content: "Concretization of dreams",
+                year: "Year:",
+                year_content: "June 2023",
+                size: "Size:",
+                size_content: "Depends on the size of the device",
+                concept_title: "Concept",
+                concept_text: `Through imagination of dreams, we use Unreal Engine to create dreamlike scenes and constantly navigate through them. Among them, there will be many common objects from daily life, such as rubber ducks, classrooms, tables, chairs, and buses. However, these objects appear in an irrational manner to create a surreal atmosphere.`,
+                video_caption: "Wanderland Project Video",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+            },
+            zh: {
+                header_back_to_portfolio: "← 返回作品集",
+                title: "Wanderland",
+                type: "3D動畫/VR",
+                theme: "主題:",
+                theme_content: "具象化夢境",
+                year: "年份:",
+                year_content: "2023 年 6 月",
+                size: "尺寸:",
+                size_content: "依顯示器尺寸而定",
+                concept_title: "創作理念",
+                concept_text: `透過對夢的想像，使用了虛幻引擎創造出夢境般的場景，讓人在其中遊蕩。\n場景中會出現許多日常生活中的常見空間及物品，如橡皮小鴨、教室、桌椅和公車座位。這些物件卻以非理性的方式出現，營造出超現實的氛圍。`,
+                video_caption: "作品影片連結： https://youtu.be/vMrgUNhiO8o",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+            }
+        };
+
+        // --- Language Switcher ---
+        const langButtons = {
+            en: document.getElementById('lang-en'),
+            zh: document.getElementById('lang-zh')
+        };
+        const allLangElements = document.querySelectorAll('[data-lang-key]');
+        
+        const updateContentLanguage = (lang) => {
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            
+            allLangElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // For video_caption and concept_text, we need to use innerHTML or handle newlines
+                    if (key === 'video_caption' || key === 'concept_text') {
+                        el.innerHTML = translations[lang][key].replace(/\n/g, '<br>');
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            Object.values(langButtons).forEach(btn => btn.classList.remove('active'));
+            langButtons[lang].classList.add('active');
+        };
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'zh') lang = 'en'; // Default to English
+            localStorage.setItem('lang', lang);
+            updateContentLanguage(lang);
+        };
+
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        setLanguage(savedLang || browserLang);
+
+        langButtons.en.addEventListener('click', () => setLanguage('en'));
+        langButtons.zh.addEventListener('click', () => setLanguage('zh'));
+
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        });
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+
+        // --- Image Gallery ---
+        const galleryImage = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const images = [
+            { src: 'https://i.imgur.com/BOSMKAJ.png', alt: 'Wanderland project image 1' },
+            { src: 'https://i.imgur.com/x9Fm4px.png', alt: 'Wanderland project image 2' },
+            { src: 'https://i.imgur.com/mwAo06M.png', alt: 'Wanderland project image 3' },
+            { src: 'https://i.imgur.com/rtnNa1L.png', alt: 'Wanderland project image 4' },
+            { src: 'https://i.imgur.com/smCnhUd.png', alt: 'Wanderland project image 5' },
+            { src: 'https://i.imgur.com/t4jIw8q.png', alt: 'Wanderland project image 6' }
+        ];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            galleryImage.style.opacity = '0';
+            setTimeout(() => {
+                galleryImage.src = images[index].src;
+                galleryImage.alt = images[index].alt;
+                galleryImage.style.opacity = '1';
+            }, 300); // Match transition duration
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<!-- The `lang` attribute will be dynamically set by JavaScript -->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- The title will be dynamically updated -->
+  <title>Personality Puzzle | Pin-Hsien Lin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Raleway & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 基本樣式與自定義字體 */
+    body {
+        font-family: 'Raleway', 'Inter', sans-serif; /* Default to Raleway, fallback to Inter */
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        cursor: none; /* 隱藏預設鼠標 */
+    }
+
+    /* 針對非標題的 UI 元素，使用無襯線字體以提高可讀性 */
+    .ui-font {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 鼠標跟隨效果樣式 */
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffffff;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ffffff;
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    }
+
+    /* 互動時鼠標的變化 */
+    body:has(a:hover) .cursor-outline,
+    body:has(button:hover) .cursor-outline,
+    body:has(.lang-btn:hover) .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+    }
+
+    /* 元素進入可視區域的動畫 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 導航欄底線效果 */
+    .nav-link {
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        margin-top: 4px;
+        right: 0;
+        background: #e5e5e5;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: #e5e5e5;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    /* 語言切換按鈕樣式 */
+    .lang-btn.active {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+
+    .lang-btn {
+        transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-lg z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold tracking-wider ui-font">PIN-HSIEN LIN</a>
+      <div class="flex items-center gap-6 text-sm ui-font">
+        <a href="../index.html" class="nav-link text-neutral-400 hover:text-white transition-colors duration-300" data-lang-key="header_back_to_portfolio">← Back to Portfolio</a>
+        <div class="border-l border-neutral-800 pl-6 flex gap-4">
+          <button id="lang-en" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">EN</button>
+          <span>/</span>
+          <button id="lang-zh" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">中文</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-24 container mx-auto px-6 max-w-5xl">
+
+    <!-- Title Section -->
+    <section class="mb-16 text-center reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400" data-lang-key="title">
+        Personality Puzzle
+      </h1>
+      <h2 class="text-xl text-neutral-400 mb-8 ui-font" data-lang-key="type">
+        Video / Live performance
+      </h2>
+
+      <div class="border-t border-b border-neutral-800 py-4 max-w-3xl mx-auto">
+          <ul class="text-sm text-neutral-400 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-left ui-font">
+            <li><strong class="font-medium text-neutral-200" data-lang-key="co_creator">Co-creator:</strong><br><span data-lang-key="co_creator_names">Hui-Ling Lo / Yu-Lien Tsao / Tzu-Chi Lan / Ting-Yi Lu / Hsi-Yun Lu / Kuo-Ling Liao</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="theme">Theme:</strong><br><span data-lang-key="theme_content">Mental state</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="year">Year:</strong><br><span data-lang-key="year_content">December 2023</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="media">Media:</strong><br><span data-lang-key="media_content">Video, Sensor, Scrim</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="size">Size:</strong><br><span data-lang-key="size_content">5 × 5 × 2 (m)</span></li>
+          </ul>
+      </div>
+    </section>
+    
+    <!-- Image Gallery -->
+    <section class="relative mb-20 group reveal">
+        <img id="gallery-image" src="https://i.imgur.com/I7QxhzJ.jpeg" alt="Personality Puzzle installation view" class="w-full rounded-lg ring-1 ring-white/10 transition-opacity duration-500 ease-in-out">
+        
+        <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        
+        <button id="next-btn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+    </section>
+
+    <!-- Statement & Process Section -->
+    <section class="mb-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start reveal">
+        <!-- Left Column: Statement -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="statement_title">Statement</h3>
+            <p class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font">
+                <span data-lang-key="statement_text" class="block">By interweaving pre-recorded dance videos with live performers, we depict the external state and inner world of individuals. Utilizing scrim screens and projectors to create three-sided immersive projections, we represent the outward appearance people display. The live performance by the dancers symbolizes their psychological state. We equip the dancers with heart rate sensors to monitor their heart rates in real-time, allowing these readings to influence the pre-recorded visuals, reflecting how one's external state is affected by their inner emotions.</span>
+            </p>
+        </div>
+        <!-- Right Column: Production Process -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="process_title">Production Process</h3>
+            <ul class="text-lg leading-relaxed text-neutral-300 space-y-2 ui-font list-disc list-inside">
+                <li data-lang-key="process_step_1">Video (Premiere)</li>
+                <li data-lang-key="process_step_2">Interactive installation (heart rate sensor)</li>
+                <li data-lang-key="process_step_3">Project operation (Touch Designer)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="mb-20 reveal">
+      <div class="relative aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10 group">
+        <a href="https://youtu.be/t0vw2IXOS98?si=oXDqUZcBMwg9cF_F" target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+          <img src="https://i.imgur.com/I7QxhzJ.jpeg" alt="Personality Puzzle Video Thumbnail" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          <div class="absolute inset-0 flex items-center justify-center bg-black/50 group-hover:bg-black/70 transition-colors duration-300">
+            <!-- Play button icon (Font Awesome equivalent or custom SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-white opacity-80 group-hover:opacity-100 transition-opacity duration-300" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
+            </svg>
+          </div>
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-center text-neutral-500 ui-font" data-lang-key="video_caption">
+        Personality Puzzle - Watch on YouTube
+      </p>
+    </section>
+
+    <!-- Back Button -->
+    <div class="mt-20 text-center reveal">
+      <a href="../index.html#portfolio" class="inline-block px-8 py-3 bg-neutral-800 text-neutral-200 font-semibold rounded-full border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:scale-105 transition-all duration-300 ui-font" data-lang-key="header_back_to_portfolio">
+        ← Back to Portfolio
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-neutral-600 py-10 text-sm border-t border-neutral-900 ui-font reveal">
+    <p data-lang-key="footer_copyright">© 2024 Pin-Hsien Lin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Translations Content Object ---
+        const translations = {
+            en: {
+                header_back_to_portfolio: "← Back to Portfolio",
+                title: "Personality Puzzle",
+                type: "Video / Live performance",
+                co_creator: "Co-creator:",
+                co_creator_names: "Hui-Ling Lo / Yu-Lien Tsao / Tzu-Chi Lan / Ting-Yi Lu / Hsi-Yun Lu / Kuo-Ling Liao",
+                theme: "Theme:",
+                theme_content: "Mental state",
+                year: "Year:",
+                year_content: "December 2023",
+                media: "Media:",
+                media_content: "Video, Sensor, Scrim",
+                size: "Size:",
+                size_content: "5 × 5 × 2 (m)",
+                statement_title: "Statement",
+                statement_text: "By interweaving pre-recorded dance videos with live performers, we depict the external state and inner world of individuals. Utilizing scrim screens and projectors to create three-sided immersive projections, we represent the outward appearance people display. The live performance by the dancers symbolizes their psychological state. We equip the dancers with heart rate sensors to monitor their heart rates in real-time, allowing these readings to influence the pre-recorded visuals, reflecting how one's external state is affected by their inner emotions.",
+                process_title: "Production Process",
+                process_step_1: "Video (Premiere)",
+                process_step_2: "Interactive installation (heart rate sensor)",
+                process_step_3: "Project operation (Touch Designer)",
+                video_caption: "Personality Puzzle - Watch on YouTube",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+            },
+            zh: {
+                header_back_to_portfolio: "← 返回作品集",
+                title: "人格拼圖",
+                type: "錄像、現場演出",
+                co_creator: "共同創作者:",
+                co_creator_names: "羅慧綾、曹宥廉、藍子琪、呂亭儀、陸熙昀、廖國伶",
+                theme: "主題:",
+                theme_content: "心理狀態",
+                year: "年份:",
+                year_content: "2023 年 12 月",
+                media: "媒材:",
+                media_content: "錄像、感應器、紗幕",
+                size: "尺寸:",
+                size_content: "5 × 5 × 2 (公尺)",
+                statement_title: "創作論述",
+                statement_text: "透過將預錄的舞蹈影片與現場舞者交錯融合，我們展現了人的外在狀態與內心世界。利用紗幕與投影機製造的三面環繞投影，呈現人對外的表現，而舞者的現場演出則象徵人們的心理狀態。我們在舞者身上安裝了心律感測器，即時監控心律，並使其影響預錄畫面，反映外在狀態如何受到內心世界的影響。",
+                process_title: "創作流程",
+                process_step_1: "影像製作 (Premiere)",
+                process_step_2: "互動裝置 (心律感測器)",
+                process_step_3: "專案操作 (Touch Designer)",
+                video_caption: "人格拼圖 - 在 YouTube 觀看",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+            }
+        };
+
+        // --- Language Switcher ---
+        const langButtons = {
+            en: document.getElementById('lang-en'),
+            zh: document.getElementById('lang-zh')
+        };
+        const allLangElements = document.querySelectorAll('[data-lang-key]');
+        
+        const updateContentLanguage = (lang) => {
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            
+            allLangElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // For video_caption, we need to use innerHTML because it contains a span tag
+                    // And co_creator_names as well
+                    if (key === 'video_caption' || key === 'co_creator_names') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            Object.values(langButtons).forEach(btn => btn.classList.remove('active'));
+            langButtons[lang].classList.add('active');
+        };
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'zh') lang = 'en'; // Default to English
+            localStorage.setItem('lang', lang);
+            updateContentLanguage(lang);
+        };
+
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        setLanguage(savedLang || browserLang);
+
+        langButtons.en.addEventListener('click', () => setLanguage('en'));
+        langButtons.zh.addEventListener('click', () => setLanguage('zh'));
+
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        });
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+
+        // --- Image Gallery ---
+        const galleryImage = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const images = [
+            { src: 'https://i.imgur.com/I7QxhzJ.jpeg', alt: 'Personality Puzzle installation view 1' },
+            { src: 'https://i.imgur.com/t8wpRPG.png', alt: 'Personality Puzzle installation view 2' },
+            { src: 'https://i.imgur.com/NzZ6tu9.png', alt: 'Personality Puzzle installation view 3' },
+            { src: 'https://i.imgur.com/ju6iOL0.png', alt: 'Personality Puzzle installation view 4' },
+            { src: 'https://i.imgur.com/AsJ36GL.jpeg', alt: 'Personality Puzzle installation view 5' }
+        ];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            galleryImage.style.opacity = '0';
+            setTimeout(() => {
+                galleryImage.src = images[index].src;
+                galleryImage.alt = images[index].alt;
+                galleryImage.style.opacity = '1';
+            }, 300); // Match transition duration
+        };
+
+        // Initialize with the first image
+        showImage(currentIndex);
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+    });
+  </script>
+
+</body>
+</html>
+

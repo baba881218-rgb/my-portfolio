@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!-- The `lang` attribute will be dynamically set by JavaScript -->
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- The title will be dynamically updated -->
+  <title>Wandering Reminiscences | Pin-Hsien Lin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Raleway & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 基本樣式與自定義字體 */
+    body {
+        font-family: 'Raleway', 'Inter', sans-serif; /* Default to Raleway, fallback to Inter */
+        background-color: #0a0a0a;
+        color: #e5e5e5;
+        overflow-x: hidden;
+        cursor: none; /* 隱藏預設鼠標 */
+    }
+
+    /* 針對非標題的 UI 元素，使用無襯線字體以提高可讀性 */
+    .ui-font {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 鼠標跟隨效果樣式 */
+    .cursor-dot,
+    .cursor-outline {
+        pointer-events: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #ffffff;
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #ffffff;
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    }
+
+    /* 互動時鼠標的變化 */
+    body:has(a:hover) .cursor-outline,
+    body:has(button:hover) .cursor-outline,
+    body:has(.lang-btn:hover) .cursor-outline {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: transparent;
+    }
+
+    /* 元素進入可視區域的動畫 */
+    .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* 導航欄底線效果 */
+    .nav-link {
+        position: relative;
+        transition: color 0.3s;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        display: block;
+        margin-top: 4px;
+        right: 0;
+        background: #e5e5e5;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+        left: 0;
+        background: #e5e5e5;
+    }
+
+    .nav-link:hover {
+        color: #ffffff;
+    }
+
+    /* 語言切換按鈕樣式 */
+    .lang-btn.active {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+
+    .lang-btn {
+        transition: color 0.3s;
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-lg z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="text-xl font-bold tracking-wider ui-font">PIN-HSIEN LIN</a>
+      <div class="flex items-center gap-6 text-sm ui-font">
+        <a href="../index.html" class="nav-link text-neutral-400 hover:text-white transition-colors duration-300" data-lang-key="header_back_to_portfolio">← Back to Portfolio</a>
+        <div class="border-l border-neutral-800 pl-6 flex gap-4">
+          <button id="lang-en" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">EN</button>
+          <span>/</span>
+          <button id="lang-zh" class="lang-btn text-neutral-400 hover:text-white transition-colors duration-300">中文</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-24 container mx-auto px-6 max-w-5xl">
+
+    <!-- Title Section -->
+    <section class="mb-16 text-center reveal">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-neutral-100 to-neutral-400" data-lang-key="title">
+        Wandering Reminiscences
+      </h1>
+      <h2 class="text-xl text-neutral-400 mb-8 ui-font" data-lang-key="type">
+        Video, Interactive Installation
+      </h2>
+
+      <div class="border-t border-b border-neutral-800 py-4 max-w-3xl mx-auto">
+          <ul class="text-sm text-neutral-400 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-left ui-font">
+            <li><strong class="font-medium text-neutral-200" data-lang-key="co_creator">Co-creator:</strong><br><span data-lang-key="co_creator_names">Kai-Jui Cheng</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="theme">Theme:</strong><br><span data-lang-key="theme_content">Time and memory</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="year">Year:</strong><br><span data-lang-key="year_content">April 2021</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="media">Media:</strong><br><span data-lang-key="media_content">Video, Wood, Metal, Sensor</span></li>
+            <li><strong class="font-medium text-neutral-200" data-lang-key="size">Size:</strong><br><span data-lang-key="size_content">2 x 4 x 4 (m)</span></li>
+          </ul>
+      </div>
+    </section>
+    
+    <!-- Image Gallery -->
+    <section class="relative mb-20 group reveal">
+        <img id="gallery-image" src="https://i.imgur.com/vy1eEQX.jpeg" alt="Wandering Reminiscences installation view 1" class="w-full rounded-lg ring-1 ring-white/10 transition-opacity duration-500 ease-in-out">
+        
+        <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        
+        <button id="next-btn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+    </section>
+
+    <!-- Statement & Process Section -->
+    <section class="mb-20 grid md:grid-cols-2 gap-12 items-start reveal">
+        <!-- Left Column: Statement -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="statement_title">Statement</h3>
+            <p class="text-lg leading-relaxed text-neutral-300 space-y-4 ui-font">
+                <span data-lang-key="statement_text" class="block">When the present becomes the past, what has happened becomes the memory and farther and farther as time passes. However, when we open the box of memories in our minds, the gradually dimming picture can reappear, replay, and finally fade again, constantly reincarnating at the moment we remember. The work looks like a wall of clocks for a distance. Once approached, videos will appear on the clock surface one by one. In the strong light projection, the hands will gradually be submerged, replaced by the daily scenery that appears. Finally, when the audience leaves, they will return to the normal clock wall and continue to record the current time.</span>
+            </p>
+        </div>
+        <!-- Right Column: Production Process -->
+        <div>
+            <h3 class="text-3xl font-bold mb-6" data-lang-key="process_title">Production Process</h3>
+            <ul class="text-lg leading-relaxed text-neutral-300 space-y-2 ui-font list-disc list-inside">
+                <li data-lang-key="process_step_1">Interactive Programming (Ultrasonic Sensor, Arduino, Processing)</li>
+                <li data-lang-key="process_step_2">Image projection output (Obs Studio)</li>
+                <li data-lang-key="process_step_3">Space modeling design and woodwork</li>
+                <li data-lang-key="process_step_4">Video recording (Phone for photography and editing)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Awards & Exhibitions Section -->
+    <section class="mb-20 text-center reveal">
+      <h3 class="text-3xl font-bold mb-8" data-lang-key="awards_exhibitions_title">Awards & Exhibitions</h3>
+      <div class="text-lg leading-relaxed text-neutral-300 ui-font max-w-4xl mx-auto" data-lang-key="awards_exhibitions_content">
+        <!-- This content is set by JS -->
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="mb-20 reveal">
+      <div class="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-purple-500/10 ring-1 ring-white/10">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/MvS0TvzEuZ4"
+          title="Wandering Reminiscences Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="mt-4 text-sm text-center text-neutral-500 ui-font" data-lang-key="video_caption">
+        Project link: <a href="https://youtu.be/MvS0TvzEuZ4" target="_blank" class="font-medium text-neutral-300 hover:underline">https://youtu.be/MvS0TvzEuZ4</a>
+      </p>
+    </section>
+
+    <!-- Back Button -->
+    <div class="mt-20 text-center reveal">
+      <a href="../index.html#portfolio" class="inline-block px-8 py-3 bg-neutral-800 text-neutral-200 font-semibold rounded-full border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:scale-105 transition-all duration-300 ui-font" data-lang-key="header_back_to_portfolio">
+        ← Back to Portfolio
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-neutral-600 py-10 text-sm border-t border-neutral-900 ui-font reveal">
+    <p data-lang-key="footer_copyright">© 2024 Pin-Hsien Lin. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Translations Content Object ---
+        const translations = {
+            en: {
+                header_back_to_portfolio: "← Back to Portfolio",
+                title: "Wandering Reminiscences",
+                type: "Video, Interactive Installation",
+                co_creator: "Co-creator:",
+                co_creator_names: "Kai-Jui Cheng",
+                theme: "Theme:",
+                theme_content: "Time and memory",
+                year: "Year:",
+                year_content: "April 2021",
+                media: "Media:",
+                media_content: "Video, Wood, Metal, Sensor",
+                size: "Size:",
+                size_content: "2 x 4 x 4 (m)",
+                awards_exhibitions_title: "Awards & Exhibitions",
+                awards_exhibitions_content: "2nd Department Exhibition of the Academy of Fine Arts \"Daily. Extraordinary\" Award-winning work<br>Hsinchu 241 Art Space \"Encounter with the Fourth Kind\" exhibited work",
+                statement_title: "Statement",
+                statement_text: "When the present becomes the past, what has happened becomes the memory and farther and farther as time passes. However, when we open the box of memories in our minds, the gradually dimming picture can reappear, replay, and finally fade again, constantly reincarnating at the moment we remember. The work looks like a wall of clocks for a distance. Once approached, videos will appear on the clock surface one by one. In the strong light projection, the hands will gradually be submerged, replaced by the daily scenery that appears. Finally, when the audience leaves, they will return to the normal clock wall and continue to record the current time.",
+                process_title: "Production Process",
+                process_step_1: "Interactive Programming (Ultrasonic Sensor, Arduino, Processing)",
+                process_step_2: "Image projection output (Obs Studio)",
+                process_step_3: "Space modeling design and woodwork",
+                process_step_4: "Video recording (Phone for photography and editing)",
+                video_caption: "Project link: <a href=\"https://youtu.be/MvS0TvzEuZ4\" target=\"_blank\" class=\"font-medium text-neutral-300 hover:underline\">https://youtu.be/MvS0TvzEuZ4</a>",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+            },
+            zh: {
+                header_back_to_portfolio: "← 返回作品集",
+                title: "停滯的歲月靜好",
+                type: "錄像、互動裝置",
+                co_creator: "共同創作者:",
+                co_creator_names: "鄭凱睿",
+                theme: "主題:",
+                theme_content: "時間與回憶",
+                year: "年份:",
+                year_content: "2021 年 4 月",
+                media: "媒材:",
+                media_content: "錄像、木板、金屬、感測器",
+                size: "尺寸:",
+                size_content: "約 2 x 4 x 4（公尺）",
+                awards_exhibitions_title: "獎項與展覽",
+                awards_exhibitions_content: "藝術學院學士班第二屆系展《日常。非常》獲獎作品<br>新竹241藝術空間《䦉乘相識--第四類接觸》參展作品",
+                statement_title: "創作論述",
+                statement_text: "每個人都在時間的洪流裡被推著不斷往前，而當現在成為過去的一瞬間，曾發生過的事情便成為回憶停了下來，隨著時間的距離越拉越遠。然而當我們打開了腦中回憶的小盒子，逐漸黯淡的畫面又能浮現、回放，最後再度淡去，在我們想起的時刻不斷輪迴。作品遠看好像是一個時鐘牆，一旦靠近後，影像便會逐一浮現在鐘面上。在強光投影中，指針會逐漸被淹沒，取而代之的是逐一出現的日常風景，而當觀眾離開後，便又會回到正常的時鐘牆，繼續記錄著當下的時間。",
+                process_title: "製作方式",
+                process_step_1: "互動程式設計：超音波感測器、Arduino、Processing",
+                process_step_2: "影像投影輸出：Obs Studio",
+                process_step_3: "空間造型設計與木作",
+                process_step_4: "錄像：手機攝影、剪輯",
+                video_caption: "作品連結： <a href=\"https://youtu.be/MvS0TvzEuZ4\" target=\"_blank\" class=\"font-medium text-neutral-300 hover:underline\">https://youtu.be/MvS0TvzEuZ4</a>",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+            }
+        };
+
+        // --- Language Switcher ---
+        const langButtons = {
+            en: document.getElementById('lang-en'),
+            zh: document.getElementById('lang-zh')
+        };
+        const allLangElements = document.querySelectorAll('[data-lang-key]');
+        
+        const updateContentLanguage = (lang) => {
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            
+            allLangElements.forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    // For video_caption and awards_exhibitions_content, use innerHTML as they contain HTML tags
+                    if (key === 'video_caption' || key === 'awards_exhibitions_content') {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            Object.values(langButtons).forEach(btn => btn.classList.remove('active'));
+            langButtons[lang].classList.add('active');
+        };
+
+        const setLanguage = (lang) => {
+            if (lang !== 'en' && lang !== 'zh') lang = 'en'; // Default to English
+            localStorage.setItem('lang', lang);
+            updateContentLanguage(lang);
+        };
+
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        setLanguage(savedLang || browserLang);
+
+        langButtons.en.addEventListener('click', () => setLanguage('en'));
+        langButtons.zh.addEventListener('click', () => setLanguage('zh'));
+
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        });
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+
+        // --- Image Gallery ---
+        const galleryImage = document.getElementById('gallery-image');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        const images = [
+            { src: 'https://i.imgur.com/vy1eEQX.jpeg', alt: 'Wandering Reminiscences installation view 1' },
+            { src: 'https://i.imgur.com/glVsfUk.jpeg', alt: 'Wandering Reminiscences installation view 2' },
+            { src: 'https://i.imgur.com/DT0TYWy.jpeg', alt: 'Wandering Reminiscences installation view 3' }
+        ];
+        let currentIndex = 0;
+
+        const showImage = (index) => {
+            galleryImage.style.opacity = '0';
+            setTimeout(() => {
+                galleryImage.src = images[index].src;
+                galleryImage.alt = images[index].alt;
+                galleryImage.style.opacity = '1';
+            }, 300); // Match transition duration
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+            showImage(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+            showImage(currentIndex);
+        });
+    });
+  </script>
+
+</body>
+</html>
