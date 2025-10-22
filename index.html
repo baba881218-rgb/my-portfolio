@@ -430,262 +430,271 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- 翻譯內容物件 ---
-            const translations = {
-                en: {
-                    nav_about: "About",
-                    nav_portfolio: "Portfolio",
-                    nav_experience: "Experience",
-                    nav_contact: "Contact",
-                    hero_name_zh: "林品嫺",
-                    hero_title: "Interactive Artist & VR Developer",
-                    about_title: "About Me",
-                    about_text: "With 6 years of experience in interactive art, I specialize in designing and delivering immersive VR solutions that merge digital and physical environments. My expertise spans human-computer interaction, 3D modeling, UI/UX design, and sensor-based installations. I help organizations, festivals, and creative teams translate complex concepts into engaging, high-impact experiences. Having collaborated with international events like Ars Electronica and managed VR technology for large-scale productions, I bring a blend of artistic vision and technical precision to projects that aim to inspire, educate, and connect audiences.",
-                    education_title: "Education",
-                    education_1: "Hochschule für Künste Bremen, Digital Media MA",
-                    education_2: "Master's Program of Digital Content and Technology, National Chengchi University",
-                    education_3: "Bachelor of Fine Arts in Art and Technology, National Tsing-Hua University",
-                    skills_title: "Skills",
-                    portfolio_title: "Portfolio",
-                    project1_title: "Live The Moment",
-                    project1_meta: "2022 | VR, Kinetic Installation",
-                    project2_title: "Out of the Bound",
-                    project2_meta: "2024 | 360 VR Video",
-                    project3_title: "Personality Puzzle",
-                    project3_meta: "2023 | Video, Live Performance",
-                    project4_title: "Wandering Reminiscences",
-                    project4_meta: "2021 | Video, Interactive Installation",
-                    project5_title: "Perfect Face",
-                    project5_meta: "2020 | Interactive Installation",
-                    project6_title: "Wanderland",
-                    project6_meta: "2023 | 3D Animation / VR",
-                    experience_title: "Major Experience",
-                    work_exp_title: "Work Experience",
-                    work_exp_1_title: "Le Bal de Paris de Blanca Li VR Technology Manager",
-                    work_exp_1_meta: "Surprise Lab | 2024.02",
-                    work_exp_2_title: "Summer Internship",
-                    work_exp_2_meta: "Peppercorns Interactive Media Art | 2023.07",
-                    work_exp_3_title: "Project Research Assistant",
-                    work_exp_3_meta: "\"Freeperson\" project by Professor Tao, Ya-Lun | 2023.03",
-                    work_exp_4_title: "Summer Internship",
-                    work_exp_4_meta: "Cameo Co., Ltd. | 2020.07",
-                    exhibitions_title: "Exhibitions",
-                    exhibition0_title: 'Visual Narratives and Experimental Horizons',
-                    exhibition0_meta: 'Rondo Sztuki, Katowice, Poland | 2024.11',
-                    exhibition1_title: "Ars Electronica Festival: Nature of Prototyping",
-                    exhibition1_meta: "Linz, Austria | 2022.09",
-                    exhibition2_title: 'IPTA Graduation Exhibition "Po Yu: What If You and I"',
-                    exhibition2_meta: "Taipei, Taiwan | 2022.05",
-                    exhibition3_title: '241 Art Space "Si Cheng Xiang Shi — The Fourth Kind of Contact"',
-                    exhibition3_meta: "Hsinchu, Taiwan | 2021.06",
-                    contact_title: "Get In Touch",
-                    contact_text: "If you are interested in my work or have potential collaborations in mind, please feel free to contact me.",
-                    footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
-                    toast_copied: "Copied to clipboard!",
-                },
-                zh: {
-                    nav_about: "關於",
-                    nav_portfolio: "作品集",
-                    nav_experience: "經歷",
-                    nav_contact: "聯絡",
-                    hero_name_zh: "林品嫺",
-                    hero_title: "互動藝術家 & VR 開發者",
-                    about_title: "關於我",
-                    about_text: "擁有 6 年互動藝術經驗，專長於設計與實現融合數位與實體環境的沉浸式 VR 內容。專業涵蓋人機互動、3D 建模、UI/UX 設計與感測裝置互動，協助機構、藝術節及創意團隊將複雜概念轉化為具吸引力且影響深遠的體驗。曾與國際活動合作（如林茲電子藝術節 Ars Electronica），並擔任大型製作的 VR 技術管理，將藝術視野與技術結合，為觀眾帶來啟發、教育與連結的體驗。",
-                    education_title: "學歷",
-                    education_1: "不萊梅藝術學院 數位媒體碩士",
-                    education_2: "國立政治大學 數位內容與科技碩士學位學程",
-                    education_3: "國立清華大學 藝術與科技學士",
-                    skills_title: "專業技能",
-                    portfolio_title: "作品集",
-                    project1_title: "Live The Moment (活在當下)",
-                    project1_meta: "2022 | VR, 動力裝置",
-                    project2_title: "Out of the Bound (出界)",
-                    project2_meta: "2024 | 360 VR 影片",
-                    project3_title: "Personality Puzzle (人格拼圖)",
-                    project3_meta: "2023 | 影像, 現場表演",
-                    project4_title: "Wandering Reminiscences (停滯的歲月靜好)",
-                    project4_meta: "2021 | 影像, 互動裝置",
-                    project5_title: "Perfect Face (完美容顏)",
-                    project5_meta: "2020 | 互動裝置",
-                    project6_title: "Wanderland",
-                    project6_meta: "2023 | 3D 動畫 / VR",
-                    experience_title: "主要經歷",
-                    work_exp_title: "工作經驗",
-                    work_exp_1_title: "巴黎舞會VR技術管理",
-                    work_exp_1_meta: "驚喜製造股份有限公司 | 2024.02",
-                    work_exp_2_title: "暑期實習",
-                    work_exp_2_meta: "黑川互動媒體藝術 | 2023.07",
-                    work_exp_3_title: "計畫助理",
-                    work_exp_3_meta: "陶亞倫教授—「自由人」計畫 | 2023.03",
-                    work_exp_4_title: "暑期實習",
-                    work_exp_4_meta: "卡米爾股份有限公司 | 2020.07",
-                    exhibitions_title: "展覽經歷",
-                    exhibition0_title: 'Visual Narratives and Experimental Horizons',
-                    exhibition0_meta: 'Rondo Sztuki, 卡托維治, 波蘭 | 2024.11',
-                    exhibition1_title: "林茲電子藝術節: Nature of Prototyping",
-                    exhibition1_meta: "林茲, 奧地利 | 2022.09",
-                    exhibition2_title: 'IPTA 畢業展 "破ㄩ:假如你我口口口口"',
-                    exhibition2_meta: "台北, 台灣 | 2022.05",
-                    exhibition3_title: '241藝術空間 "駟乘相識—第四類接觸"',
-                    exhibition3_meta: "新竹, 台灣 | 2021.06",
-                    contact_title: "保持聯繫",
-                    contact_text: "如果您對我的作品感興趣或有合作意向，請隨時與我聯絡。",
-                    footer_copyright: "© 2024 林品嫺. 版權所有.",
-                    toast_copied: "已複製到剪貼簿！",
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- 翻譯內容物件 ---
+        const translations = {
+            en: {
+                nav_about: "About",
+                nav_portfolio: "Portfolio",
+                nav_experience: "Experience",
+                nav_contact: "Contact",
+                hero_name_zh: "林品嫺",
+                hero_title: "Interactive Artist & VR Developer",
+                about_title: "About Me",
+                about_text: "With 6 years of experience in interactive art, I specialize in designing and delivering immersive VR solutions that merge digital and physical environments. My expertise spans human-computer interaction, 3D modeling, UI/UX design, and sensor-based installations. I help organizations, festivals, and creative teams translate complex concepts into engaging, high-impact experiences. Having collaborated with international events like Ars Electronica and managed VR technology for large-scale productions, I bring a blend of artistic vision and technical precision to projects that aim to inspire, educate, and connect audiences.",
+                education_title: "Education",
+                education_1: "Hochschule für Künste Bremen, Digital Media MA",
+                education_2: "Master's Program of Digital Content and Technology, National Chengchi University",
+                education_3: "Bachelor of Fine Arts in Art and Technology, National Tsing-Hua University",
+                skills_title: "Skills",
+                portfolio_title: "Portfolio",
+                project1_title: "Live The Moment",
+                project1_meta: "2022 | VR, Kinetic Installation",
+                project2_title: "Out of the Bound",
+                project2_meta: "2024 | 360 VR Video",
+                project3_title: "Personality Puzzle",
+                project3_meta: "2023 | Video, Live Performance",
+                project4_title: "Wandering Reminiscences",
+                project4_meta: "2021 | Video, Interactive Installation",
+                project5_title: "Perfect Face",
+                project5_meta: "2020 | Interactive Installation",
+                project6_title: "Wanderland",
+                project6_meta: "2023 | 3D Animation / VR",
+                experience_title: "Major Experience",
+                work_exp_title: "Work Experience",
+                work_exp_1_title: "Le Bal de Paris de Blanca Li VR Technology Manager",
+                work_exp_1_meta: "Surprise Lab | 2024.02",
+                work_exp_2_title: "Summer Internship",
+                work_exp_2_meta: "Peppercorns Interactive Media Art | 2023.07",
+                work_exp_3_title: "Project Research Assistant",
+                work_exp_3_meta: "\"Freeperson\" project by Professor Tao, Ya-Lun | 2023.03",
+                work_exp_4_title: "Summer Internship",
+                work_exp_4_meta: "Cameo Co., Ltd. | 2020.07",
+                exhibitions_title: "Exhibitions",
+                exhibition0_title: 'Visual Narratives and Experimental Horizons',
+                exhibition0_meta: 'Rondo Sztuki, Katowice, Poland | 2024.11',
+                exhibition1_title: "Ars Electronica Festival: Nature of Prototyping",
+                exhibition1_meta: "Linz, Austria | 2022.09",
+                exhibition2_title: 'IPTA Graduation Exhibition "Po Yu: What If You and I"',
+                exhibition2_meta: "Taipei, Taiwan | 2022.05",
+                exhibition3_title: '241 Art Space "Si Cheng Xiang Shi — The Fourth Kind of Contact"',
+                exhibition3_meta: "Hsinchu, Taiwan | 2021.06",
+                contact_title: "Get In Touch",
+                contact_text: "If you are interested in my work or have potential collaborations in mind, please feel free to contact me.",
+                footer_copyright: "© 2024 Pin-Hsien Lin. All Rights Reserved.",
+                toast_copied: "Copied to clipboard!",
+            },
+            zh: {
+                nav_about: "關於",
+                nav_portfolio: "作品集",
+                nav_experience: "經歷",
+                nav_contact: "聯絡",
+                hero_name_zh: "林品嫺",
+                hero_title: "互動藝術家 & VR 開發者",
+                about_title: "關於我",
+                about_text: "擁有 6 年互動藝術經驗，專長於設計與實現融合數位與實體環境的沉浸式 VR 內容。專業涵蓋人機互動、3D 建模、UI/UX 設計與感測裝置互動，協助機構、藝術節及創意團隊將複雜概念轉化為具吸引力且影響深遠的體驗。曾與國際活動合作（如林茲電子藝術節 Ars Electronica），並擔任大型製作的 VR 技術管理，將藝術視野與技術結合，為觀眾帶來啟發、教育與連結的體驗。",
+                education_title: "學歷",
+                education_1: "不萊梅藝術學院 數位媒體碩士",
+                education_2: "國立政治大學 數位內容與科技碩士學位學程",
+                education_3: "國立清華大學 藝術與科技學士",
+                skills_title: "專業技能",
+                portfolio_title: "作品集",
+                project1_title: "Live The Moment (活在當下)",
+                project1_meta: "2022 | VR, 動力裝置",
+                project2_title: "Out of the Bound (出界)",
+                project2_meta: "2024 | 360 VR 影片",
+                project3_title: "Personality Puzzle (人格拼圖)",
+                project3_meta: "2023 | 影像, 現場表演",
+                project4_title: "Wandering Reminiscences (停滯的歲月靜好)",
+                project4_meta: "2021 | 影像, 互動裝置",
+                project5_title: "Perfect Face (完美容顏)",
+                project5_meta: "2020 | 互動裝置",
+                project6_title: "Wanderland",
+                project6_meta: "2023 | 3D 動畫 / VR",
+                experience_title: "主要經歷",
+                work_exp_title: "工作經驗",
+                work_exp_1_title: "巴黎舞會VR技術管理",
+                work_exp_1_meta: "驚喜製造股份有限公司 | 2024.02",
+                work_exp_2_title: "暑期實習",
+                work_exp_2_meta: "黑川互動媒體藝術 | 2023.07",
+                work_exp_3_title: "計畫助理",
+                work_exp_3_meta: "陶亞倫教授—「自由人」計畫 | 2023.03",
+                work_exp_4_title: "暑期實習",
+                work_exp_4_meta: "卡米爾股份有限公司 | 2020.07",
+                exhibitions_title: "展覽經歷",
+                exhibition0_title: 'Visual Narratives and Experimental Horizons',
+                exhibition0_meta: 'Rondo Sztuki, 卡托維治, 波蘭 | 2024.11',
+                exhibition1_title: "林茲電子藝術節: Nature of Prototyping",
+                exhibition1_meta: "林茲, 奧地利 | 2022.09",
+                exhibition2_title: 'IPTA 畢業展 "破ㄩ:假如你我口口口口"',
+                exhibition2_meta: "台北, 台灣 | 2022.05",
+                exhibition3_title: '241藝術空間 "駟乘相識—第四類接觸"',
+                exhibition3_meta: "新竹, 台灣 | 2021.06",
+                contact_title: "保持聯繫",
+                contact_text: "如果您對我的作品感興趣或有合作意向，請隨時與我聯絡。",
+                footer_copyright: "© 2024 林品嫺. 版權所有.",
+                toast_copied: "已複製到剪貼簿！",
+            }
+        };
+
+        const langEnBtn = document.getElementById('lang-en');
+        const langZhBtn = document.getElementById('lang-zh');
+        let currentLang = 'en';
+
+        const switchLanguage = (lang) => {
+            currentLang = lang;
+            // [--- 修正 1 ---]
+            // 在這裡儲存使用者的語言選擇
+            localStorage.setItem('lang', lang); 
+
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
                 }
-            };
+            });
+            if (lang === 'en') {
+                langEnBtn.classList.add('active');
+                langZhBtn.classList.remove('active');
+            } else {
+                langEnBtn.classList.remove('active');
+                langZhBtn.classList.add('active');
+            }
+        };
 
-            const langEnBtn = document.getElementById('lang-en');
-            const langZhBtn = document.getElementById('lang-zh');
-            let currentLang = 'en';
+        langEnBtn.addEventListener('click', () => switchLanguage('en'));
+        langZhBtn.addEventListener('click', () => switchLanguage('zh'));
+        
 
-            const switchLanguage = (lang) => {
-                currentLang = lang;
-                document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
-                document.querySelectorAll('[data-lang-key]').forEach(element => {
-                    const key = element.getAttribute('data-lang-key');
-                    if (translations[lang] && translations[lang][key]) {
-                        element.textContent = translations[lang][key];
-                    }
-                });
-                if (lang === 'en') {
-                    langEnBtn.classList.add('active');
-                    langZhBtn.classList.remove('active');
+        // --- Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        let cursorVisible = false;
+        let mouseX = 0,
+            mouseY = 0,
+            outlineX = 0,
+            outlineY = 0;
+
+        document.addEventListener('mousemove', () => {
+            if (!cursorVisible) {
+                cursorVisible = true;
+                cursorDot.style.opacity = '1';
+                cursorOutline.style.opacity = '1';
+            }
+        });
+
+        window.onmousemove = (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.top = mouseY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+        };
+
+        const animateOutline = () => {
+            outlineX += (mouseX - outlineX) * 0.1;
+            outlineY += (mouseY - outlineY) * 0.1;
+            cursorOutline.style.top = outlineY + 'px';
+            cursorOutline.style.left = outlineX + 'px';
+            requestAnimationFrame(animateOutline);
+        };
+        animateOutline();
+
+        document.addEventListener('mouseout', () => {
+            cursorDot.style.opacity = '0';
+            cursorOutline.style.opacity = '0';
+            cursorVisible = false;
+        });
+
+        // --- Reveal on Scroll Logic ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        revealElements.forEach(el => observer.observe(el));
+        
+        // --- Gallery Toggle Logic ---
+        const galleryTriggers = document.querySelectorAll('.gallery-trigger');
+        galleryTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const toggleIcon = this.querySelector('.gallery-toggle');
+                const galleryContainer = this.nextElementSibling;
+
+                if (galleryContainer.style.maxHeight) {
+                    galleryContainer.style.maxHeight = null;
+                    toggleIcon.textContent = '+';
                 } else {
-                    langEnBtn.classList.remove('active');
-                    langZhBtn.classList.add('active');
-                }
-            };
-
-            langEnBtn.addEventListener('click', () => switchLanguage('en'));
-            langZhBtn.addEventListener('click', () => switchLanguage('zh'));
-            
-
-            // --- Custom Cursor Logic ---
-            const cursorDot = document.querySelector('.cursor-dot');
-            const cursorOutline = document.querySelector('.cursor-outline');
-            let cursorVisible = false;
-            let mouseX = 0,
-                mouseY = 0,
-                outlineX = 0,
-                outlineY = 0;
-
-            document.addEventListener('mousemove', () => {
-                if (!cursorVisible) {
-                    cursorVisible = true;
-                    cursorDot.style.opacity = '1';
-                    cursorOutline.style.opacity = '1';
+                    galleryContainer.style.maxHeight = galleryContainer.scrollHeight + 'px';
+                    toggleIcon.textContent = '−';
                 }
             });
+        });
 
-            window.onmousemove = (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                cursorDot.style.top = mouseY + 'px';
-                cursorDot.style.left = mouseX + 'px';
-            };
+        // --- Hero Video Background Rotation ---
+        const heroVideo = document.getElementById('hero-video');
+        const videoSources = [
+            'https://i.imgur.com/YuOEXjQ.mp4',
+            'https://i.imgur.com/LZgWkag.mp4',
+            'https://i.imgur.com/Wtb3nKf.mp4'
+        ];
+        let currentVideoIndex = 0;
 
-            const animateOutline = () => {
-                outlineX += (mouseX - outlineX) * 0.1;
-                outlineY += (mouseY - outlineY) * 0.1;
-                cursorOutline.style.top = outlineY + 'px';
-                cursorOutline.style.left = outlineX + 'px';
-                requestAnimationFrame(animateOutline);
-            };
-            animateOutline();
-
-            document.addEventListener('mouseout', () => {
-                cursorDot.style.opacity = '0';
-                cursorOutline.style.opacity = '0';
-                cursorVisible = false;
+        const setVideoSource = () => {
+            if (!heroVideo) return;
+            heroVideo.src = videoSources[currentVideoIndex];
+            heroVideo.load();
+            heroVideo.play().catch(error => {
+                console.error("影片自動播放失敗:", error);
             });
+        };
 
-            // --- Reveal on Scroll Logic ---
-            const revealElements = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal-visible');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            revealElements.forEach(el => observer.observe(el));
-            
-            // --- Gallery Toggle Logic ---
-            const galleryTriggers = document.querySelectorAll('.gallery-trigger');
-            galleryTriggers.forEach(trigger => {
-                trigger.addEventListener('click', function() {
-                    const toggleIcon = this.querySelector('.gallery-toggle');
-                    const galleryContainer = this.nextElementSibling;
-
-                    if (galleryContainer.style.maxHeight) {
-                        galleryContainer.style.maxHeight = null;
-                        toggleIcon.textContent = '+';
-                    } else {
-                        galleryContainer.style.maxHeight = galleryContainer.scrollHeight + 'px';
-                        toggleIcon.textContent = '−';
-                    }
-                });
-            });
-
-            // --- Hero Video Background Rotation ---
-            const heroVideo = document.getElementById('hero-video');
-            const videoSources = [
-                'https://i.imgur.com/YuOEXjQ.mp4',
-                'https://i.imgur.com/LZgWkag.mp4',
-                'https://i.imgur.com/Wtb3nKf.mp4'
-            ];
-            let currentVideoIndex = 0;
-
-            const setVideoSource = () => {
-                if (!heroVideo) return;
-                heroVideo.src = videoSources[currentVideoIndex];
-                heroVideo.load();
-                heroVideo.play().catch(error => {
-                    console.error("影片自動播放失敗:", error);
-                });
-            };
-
-            heroVideo.addEventListener('ended', () => {
-                currentVideoIndex++;
-                if (currentVideoIndex >= videoSources.length) {
-                    currentVideoIndex = 0;
-                }
-                setVideoSource();
-            });
-            
-            // --- Copy Email Logic ---
-            const copyEmailBtn = document.getElementById('copy-email-btn');
-            const toast = document.getElementById('toast');
-            
-            copyEmailBtn.addEventListener('click', () => {
-                const email = 'baba881218@gmail.com';
-                const textarea = document.createElement('textarea');
-                textarea.value = email;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-
-                // Show toast
-                toast.querySelector('span').textContent = translations[currentLang].toast_copied;
-                toast.classList.remove('opacity-0');
-                
-                // Hide toast after 2 seconds
-                setTimeout(() => {
-                    toast.classList.add('opacity-0');
-                }, 2000);
-            });
-
-            // --- Initial Load ---
-            switchLanguage('en'); // Default language
+        heroVideo.addEventListener('ended', () => {
+            currentVideoIndex++;
+            if (currentVideoIndex >= videoSources.length) {
+                currentVideoIndex = 0;
+            }
             setVideoSource();
         });
-    </script>
+        
+        // --- Copy Email Logic ---
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const toast = document.getElementById('toast');
+        
+        copyEmailBtn.addEventListener('click', () => {
+            const email = 'baba881218@gmail.com';
+            const textarea = document.createElement('textarea');
+            textarea.value = email;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            // Show toast
+            toast.querySelector('span').textContent = translations[currentLang].toast_copied;
+            toast.classList.remove('opacity-0');
+            
+            // Hide toast after 2 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        });
+
+        // --- Initial Load ---
+        // [--- 修正 2 ---]
+        // 頁面載入時，檢查 localStorage 或瀏覽器語言
+        const savedLang = localStorage.getItem('lang');
+        const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+        switchLanguage(savedLang || browserLang); // 使用儲存的語言，若無則用瀏覽器語言
+
+        setVideoSource();
+    });
+  </script>
 </body>
 </html>
 
