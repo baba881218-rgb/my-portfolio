@@ -141,6 +141,16 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #777;
         }
+
+        /* Dropdown for projects */
+        .project-dropdown-toggle {
+            cursor: pointer;
+        }
+        .project-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -321,23 +331,45 @@
                         <div class="space-y-4 border-l-2 border-neutral-700 pl-6">
                             <div class="relative">
                                 <div class="absolute -left-[33px] top-1 w-4 h-4 bg-neutral-500 rounded-full"></div>
-                                <p class="font-medium" data-lang-key="work_exp_1_title">Le Bal de Paris de Blanca Li VR Technology Manager</p>
+                                <a href="https://project.surpriselab.com.tw/lebaldeparis/en" target="_blank" class="font-medium hover:text-white transition-colors" data-lang-key="work_exp_1_title">Le Bal de Paris de Blanca Li VR Technology Manager</a>
                                 <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_1_meta">Surprise Lab | 2024.02</p>
                             </div>
                             <div class="relative">
                                 <div class="absolute -left-[33px] top-1 w-4 h-4 bg-neutral-600 rounded-full"></div>
-                                <p class="font-medium" data-lang-key="work_exp_2_title">Summer Internship</p>
-                                <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_2_meta">Peppercorns Interactive Media Art | 2023.07</p>
+                                <div class="project-dropdown-toggle flex justify-between items-center">
+                                    <div>
+                                        <p class="font-medium" data-lang-key="work_exp_2_title">Summer Internship</p>
+                                        <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_2_meta">Peppercorns Interactive Media Art | 2023.07</p>
+                                    </div>
+                                    <span class="gallery-toggle text-2xl text-neutral-500 hover:text-white transition-transform duration-300 font-light">+</span>
+                                </div>
+                                <div class="project-dropdown-content mt-4 pl-4 border-l border-neutral-600">
+                                    <ul class="list-disc list-inside space-y-2 text-neutral-300">
+                                        <li><a href="https://www.peppercorns.com.tw/portfolio/island/" target="_blank" class="hover:text-white transition-colors" data-lang-key="peppercorns_project_1">Symbiotic Island (Interaction Optimization)</a></li>
+                                        <li><a href="https://www.peppercorns.com.tw/portfolio/%e6%96%87%e8%a9%9e%e4%b9%8b%e6%b5%81/" target="_blank" class="hover:text-white transition-colors" data-lang-key="peppercorns_project_2">The Flow of Words (Exhibition Setup & Projection Mapping)</a></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="relative">
                                 <div class="absolute -left-[33px] top-1 w-4 h-4 bg-neutral-700 rounded-full"></div>
-                                <p class="font-medium" data-lang-key="work_exp_3_title">Project Research Assistant</p>
+                                <a href="https://youtu.be/sVbkC0X-HDI?si=XicpvczvEib0C0fb" target="_blank" class="font-medium hover:text-white transition-colors" data-lang-key="work_exp_3_title">Project Research Assistant</a>
                                 <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_3_meta">"Freeperson" project by Professor Tao, Ya-Lun | 2023.03</p>
                             </div>
                             <div class="relative">
                                 <div class="absolute -left-[33px] top-1 w-4 h-4 bg-neutral-800 rounded-full"></div>
-                                <p class="font-medium" data-lang-key="work_exp_4_title">Summer Internship</p>
-                                <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_4_meta">Cameo Co., Ltd. | 2020.07</p>
+                                <div class="project-dropdown-toggle flex justify-between items-center">
+                                    <div>
+                                        <p class="font-medium" data-lang-key="work_exp_4_title">Summer Internship</p>
+                                        <p class="text-sm text-neutral-400 ui-font" data-lang-key="work_exp_4_meta">Cameo Co., Ltd. | 2020.07</p>
+                                    </div>
+                                    <span class="gallery-toggle text-2xl text-neutral-500 hover:text-white transition-transform duration-300 font-light">+</span>
+                                </div>
+                                <div class="project-dropdown-content mt-4 pl-4 border-l border-neutral-600">
+                                    <ul class="list-disc list-inside space-y-2 text-neutral-300">
+                                        <li><a href="https://cameo.tw/tw/exhibition/case-10.html" target="_blank" class="hover:text-white transition-colors" data-lang-key="cameo_project_1">National Museum of Taiwan History: VR Re-manufacturing Place 1895 Taipei Dangerous City (Motion Capture and Animation Optimization)</a></li>
+                                        <li><a href="https://youtu.be/Uz4MKzpT-_s?si=Ag9r0e7NAuLDKKsr" target="_blank" class="hover:text-white transition-colors" data-lang-key="cameo_project_2">National Palace Museum Southern Branch Visitor Center Interactive Timeline (Research and user interface design)</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,10 +498,14 @@
                 work_exp_1_meta: "Surprise Lab | 2024.02",
                 work_exp_2_title: "Summer Internship",
                 work_exp_2_meta: "Peppercorns Interactive Media Art | 2023.07",
+                peppercorns_project_1: "Symbiotic Island (Interaction Optimization)",
+                peppercorns_project_2: "The Flow of Words (Exhibition Setup & Projection Mapping)",
                 work_exp_3_title: "Project Research Assistant",
                 work_exp_3_meta: "\"Freeperson\" project by Professor Tao, Ya-Lun | 2023.03",
                 work_exp_4_title: "Summer Internship",
                 work_exp_4_meta: "Cameo Co., Ltd. | 2020.07",
+                cameo_project_1: "National Museum of Taiwan History: VR Re-manufacturing Place 1895 Taipei Dangerous City (Motion Capture and Animation Optimization)",
+                cameo_project_2: "National Palace Museum Southern Branch Visitor Center Interactive Timeline (Research and user interface design)",
                 exhibitions_title: "Exhibitions",
                 exhibition0_title: 'Visual Narratives and Experimental Horizons',
                 exhibition0_meta: 'Rondo Sztuki, Katowice, Poland | 2024.11',
@@ -517,10 +553,14 @@
                 work_exp_1_meta: "驚喜製造股份有限公司 | 2024.02",
                 work_exp_2_title: "暑期實習",
                 work_exp_2_meta: "黑川互動媒體藝術 | 2023.07",
+                peppercorns_project_1: "共生島 (互動機制優化)",
+                peppercorns_project_2: "文辭之流 (作品架設及投影mapping)",
                 work_exp_3_title: "計畫助理",
                 work_exp_3_meta: "陶亞倫教授—「自由人」計畫 | 2023.03",
                 work_exp_4_title: "暑期實習",
                 work_exp_4_meta: "卡米爾股份有限公司 | 2020.07",
+                cameo_project_1: "國立臺灣歷史博物館：VR再現製造所 1895臺北危城(動作捕捉與動畫優化)",
+                cameo_project_2: "故宮南院導覽大廳互動式年表",
                 exhibitions_title: "展覽經歷",
                 exhibition0_title: 'Visual Narratives and Experimental Horizons',
                 exhibition0_meta: 'Rondo Sztuki, 卡托維治, 波蘭 | 2024.11',
@@ -636,6 +676,23 @@
             });
         });
 
+        // --- Project Dropdown Logic ---
+        const projectDropdownToggles = document.querySelectorAll('.project-dropdown-toggle');
+        projectDropdownToggles.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const toggleIcon = this.querySelector('.gallery-toggle');
+                const dropdownContent = this.nextElementSibling;
+
+                if (dropdownContent.style.maxHeight) {
+                    dropdownContent.style.maxHeight = null;
+                    toggleIcon.textContent = '+';
+                } else {
+                    dropdownContent.style.maxHeight = dropdownContent.scrollHeight + 'px';
+                    toggleIcon.textContent = '−';
+                }
+            });
+        });
+
         // --- Hero Video Background Rotation ---
         const heroVideo = document.getElementById('hero-video');
         const videoSources = [
@@ -697,4 +754,3 @@
   </script>
 </body>
 </html>
-
